@@ -1,0 +1,190 @@
+.container {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: 800px;
+  }
+  
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    background: rgba(45, 45, 45, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: border-color 0.3s ease, padding 0.3s ease;
+  }
+  
+  .wrapper.expanded {
+    border-color: rgba(139, 195, 74, 0.3);
+    padding: 16px 20px;
+  }
+  
+  /* Top row with input and compact suggestions */
+  .inputRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 32px;
+  }
+  
+  .form {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    padding: 0;
+    font-family: inherit;
+    line-height: 1.5;
+  }
+  
+  .input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  /* Suggestions in compact state (right side) */
+  .suggestionsCompact {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  
+  /* Wrapper for the tools section to animate height smoothly */
+  .toolsWrapper {
+    overflow: hidden;
+  }
+  
+  /* Tools row (expanded state only) */
+  .tools {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    margin-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  
+  .toolsLeft {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .toolsRight {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  
+  /* Suggestions in expanded state (next to icon buttons) */
+  .suggestionsExpanded {
+    display: flex;
+    gap: 8px;
+    margin-left: 8px;
+  }
+  
+  .toolButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+  
+  .toolButton:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  
+  .toolButton:active {
+    transform: scale(0.95);
+  }
+  
+  .submitButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    background: rgba(139, 195, 74, 0.15);
+    border: 1px solid rgba(139, 195, 74, 0.3);
+    border-radius: 8px;
+    color: rgba(139, 195, 74, 1);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    gap: 8px;
+    height: 36px;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background: rgba(139, 195, 74, 0.25);
+    border-color: rgba(139, 195, 74, 0.5);
+    transform: translateY(-1px);
+  }
+  
+  .submitButton:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  .submitButton:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  /* Subtle glow effect on focus */
+  .wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 12px;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+      rgba(139, 195, 74, 0.1) 0%, 
+      transparent 50%,
+      rgba(139, 195, 74, 0.1) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .wrapper.expanded::before {
+    opacity: 1;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .suggestionsCompact,
+    .suggestionsExpanded {
+      flex-direction: column;
+    }
+    
+    .container {
+      width: 95%;
+    }
+  }
